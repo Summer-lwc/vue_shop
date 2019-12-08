@@ -36,8 +36,8 @@ export default {
     data () {
         return {
             loginForm: {
-                username: '',
-                password: ''
+                username: 'admin',
+                password: '123456'
             },
             loginFormRules: {
                 username: [
@@ -60,10 +60,17 @@ export default {
             this.$refs.loginFormRef.validate(async valid => {
                 if ( !valid ) { 
                     return; 
-                    }
-                const result = await this.$http.post( "login", this.loginForm);
-                console.log(result);
-                });
+                }
+                const { data: res} = await this.$http.post( "login", this.loginForm);
+                console.log(res);
+                if(res.meta.status !== 200 ) {
+                    this.$message.error('登陆失败！');
+                }else{
+                    this.$message.success('登陆成功！');
+                }
+                window.sessionStorage.setItem("token", res.data.token);
+                this.$router.push('/home');
+            });
         }
     }
 };
