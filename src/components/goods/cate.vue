@@ -197,7 +197,5 @@
 .el-cascader{
     width: 100%;
 }
-.el-scrollbar__wrap{
-    height: 204px;
-}
+
 </style>
